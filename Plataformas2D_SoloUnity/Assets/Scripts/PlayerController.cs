@@ -20,10 +20,12 @@ public class PlayerController : MonoBehaviour
     public Transform groundCheckPoint;
     public LayerMask whatIsGround;
 
+    [Header("Animator")]
+    private Animator anim;
 
     void Start()
     {
-        
+        anim = GetComponent<Animator>();
     }
 
     
@@ -56,5 +58,8 @@ public class PlayerController : MonoBehaviour
             }
             
         }
+
+        anim.SetFloat("moveSpeed", Mathf.Abs(theRB.velocity.x)); //aqui lo que hacemos es pasarle al animator el valor de movespeed para que valore si tiene que hacer una animacion o otra en funcion de las condicioensq ue pusimos
+        anim.SetBool("isGrounded", isGrounded);
     }
 }
