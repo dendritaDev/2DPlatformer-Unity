@@ -9,6 +9,7 @@ public class Pickup : MonoBehaviour
 
     private bool isCollected;
 
+    public GameObject pickupEffect;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -19,6 +20,9 @@ public class Pickup : MonoBehaviour
                 LevelManager.instance.gemsCollected++;
 
                 UIController.instance.UpdateGemCount();
+
+                Instantiate(pickupEffect, transform.position, transform.rotation);
+
                 isCollected = true;
                 Destroy(gameObject);
             }
