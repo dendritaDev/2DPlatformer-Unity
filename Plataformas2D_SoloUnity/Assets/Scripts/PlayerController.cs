@@ -44,60 +44,65 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        if(knockBackCounter <= 0)
+        if(!PauseMenu.instance.isPaused) //esto es para que si le damos a escape y estamos en el menu, que el player no se pueda mover 
         {
-            theRB.velocity = new Vector2(moveSpeed * Input.GetAxis("Horizontal"), theRB.velocity.y);
-
-            isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, .2f, whatIsGround);
-            //Checks if a Collider falls within a circular area.
-            //The circle is defined by its centre coordinate in world space and by its radius. The optional layerMask allows the test to check only for objects on specific layers.
-
-            if (isGrounded)
+            if (knockBackCounter <= 0)
             {
-                canDoubleJump = true;
-            }
+                theRB.velocity = new Vector2(moveSpeed * Input.GetAxis("Horizontal"), theRB.velocity.y);
 
-            if (Input.GetButtonDown("Jump"))
-            {
-                AudioManager.instance.PlaySFX(10);
+                isGrounded = Physics2D.OverlapCircle(groundCheckPoint.position, .2f, whatIsGround);
+                //Checks if a Collider falls within a circular area.
+                //The circle is defined by its centre coordinate in world space and by its radius. The optional layerMask allows the test to check only for objects on specific layers.
 
                 if (isGrounded)
                 {
-                    theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
+                    canDoubleJump = true;
                 }
-                else
+
+                if (Input.GetButtonDown("Jump"))
                 {
-                    if (canDoubleJump)
+                    AudioManager.instance.PlaySFX(10);
+
+                    if (isGrounded)
                     {
                         theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
-                        canDoubleJump = false;
-                        AudioManager.instance.PlaySFX(10);
                     }
+                    else
+                    {
+                        if (canDoubleJump)
+                        {
+                            theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
+                            canDoubleJump = false;
+                            AudioManager.instance.PlaySFX(10);
+                        }
+                    }
+
                 }
 
+                if (theRB.velocity.x < 0)
+                {
+                    theSR.flipX = true;
+                }
+                else if (theRB.velocity.x > 0)
+                {
+                    theSR.flipX = false;
+                }
             }
+            else
+            {
+                knockBackCounter -= Time.deltaTime;
+                if (!theSR.flipX) //si no esta girado lo que haremos cuando se chocque con algo yendo hacia la derecha, sera empujarlo hacia el lado contrario como si fuese una reaccion
+                {
+                    theRB.velocity = new Vector2(-knockBackForce, theRB.velocity.y);
+                }
+                else //para el lado contrario
+                {
+                    theRB.velocity = new Vector2(knockBackForce, theRB.velocity.y);
+                }
+            }
+        }
 
-            if (theRB.velocity.x < 0)
-            {
-                theSR.flipX = true;
-            }
-            else if (theRB.velocity.x > 0)
-            {
-                theSR.flipX = false;
-            }
-        }
-        else
-        {
-            knockBackCounter -= Time.deltaTime;
-            if(!theSR.flipX) //si no esta girado lo que haremos cuando se chocque con algo yendo hacia la derecha, sera empujarlo hacia el lado contrario como si fuese una reaccion
-            {
-                theRB.velocity = new Vector2(-knockBackForce, theRB.velocity.y);
-            }
-            else //para el lado contrario
-            {
-                theRB.velocity = new Vector2(knockBackForce, theRB.velocity.y);
-            }
-        }
+        
 
         anim.SetFloat("moveSpeed", Mathf.Abs(theRB.velocity.x)); //aqui lo que hacemos es pasarle al animator el valor de movespeed para que valore si tiene que hacer una animacion o otra en funcion de las condicioensq ue pusimos
         anim.SetBool("isGrounded", isGrounded);
