@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [Header("Salto")]
     private bool canDoubleJump;
     public float jumpForce;
+    public float bounceForce;
 
 
     [Header("Componentes")]
@@ -58,6 +59,8 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetButtonDown("Jump"))
             {
+                AudioManager.instance.PlaySFX(10);
+
                 if (isGrounded)
                 {
                     theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
@@ -68,6 +71,7 @@ public class PlayerController : MonoBehaviour
                     {
                         theRB.velocity = new Vector2(theRB.velocity.x, jumpForce);
                         canDoubleJump = false;
+                        AudioManager.instance.PlaySFX(10);
                     }
                 }
 
@@ -104,5 +108,10 @@ public class PlayerController : MonoBehaviour
         knockBackCounter = knockBackLength;
         theRB.velocity = new Vector2(0f, knockBackForce);
 
+    }
+
+    public void Bounce()
+    {
+        theRB.velocity = new Vector2(theRB.velocity.x, bounceForce);
     }
 }

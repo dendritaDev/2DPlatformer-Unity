@@ -48,13 +48,17 @@ public class PlayerHealthController : MonoBehaviour
 
             PlayerController.instance.anim.SetTrigger("Hurt");
 
+            AudioManager.instance.PlaySFX(9);
+
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
                 //gameObject.SetActive(false);
 
                 Instantiate(deathEffect, PlayerController.instance.transform.position, PlayerController.instance.transform.rotation);
-                
+
+                AudioManager.instance.PlaySFX(8);
+
                 LevelManager.instance.RespawnPlayer();
             }
             else

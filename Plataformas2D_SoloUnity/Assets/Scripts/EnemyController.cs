@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
 
     private Rigidbody2D theRB;
     public SpriteRenderer theSR;
+    private Animator anim;
 
     public float moveTime, waitTime;
     private float moveCount, waitCount;
@@ -20,6 +21,7 @@ public class EnemyController : MonoBehaviour
     void Start()
     {
         theRB = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
 
         leftPoint.parent = null; //esto es pq como en la jerarquia son gameobjects hijos del enemigo, si no hacemos esto, cuando se mueva la rana
                                  //estos puntos tmb se estarian moviendo y cambiando su posicion, algo que no nos interesa
@@ -27,7 +29,7 @@ public class EnemyController : MonoBehaviour
 
         movingRight = true;
 
-        moveCount = movetime;
+        moveCount = moveTime;
 
     }
 
@@ -66,6 +68,8 @@ public class EnemyController : MonoBehaviour
             {
                 waitCount = Random.Range(waitTime * .75f, waitTime * 1.25f);
             }
+
+            anim.SetBool("isMoving", true);
         } 
         else if(waitCount > 0)
         {
@@ -76,7 +80,7 @@ public class EnemyController : MonoBehaviour
             {
                 moveCount = Random.Range(moveTime * .75f, moveTime * 1.25f); ;
             }
-
+            anim.SetBool("isMoving", false);
         }
 
  
