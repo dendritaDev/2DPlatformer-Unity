@@ -14,19 +14,45 @@ public class UIController : MonoBehaviour
 
     public Text gemText;
 
+    public Image fadeScreen;
+    public float fadeSpeed;
+    private bool shouldFadeToBlack, shouldFadeFromBlack; //pasar de 0 a 1 en alfa y la segunda pasar de 1 a 0.
+
+    public GameObject leveCompleteText;
+
     private void Awake()
     {
         instance = this;
+
     }
     void Start()
     {
         UpdateGemCount();
+        FadeFromBlack();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(shouldFadeToBlack) //si pasamos de 0 a 1
+        {
+            fadeScreen.color = new Color(fadeScreen.color.r, fadeScreen.color.g, fadeScreen.color.b, Mathf.MoveTowards(fadeScreen.color.a, 1f, fadeSpeed * Time.deltaTime));
+
+            if(fadeScreen.color.a == 1)
+            {
+                shouldFadeToBlack = false;
+            }
+        }
+
+        if (shouldFadeFromBlack) //si pasamos de 0 a 1
+        {
+            fadeScreen.color = new Color(fadeScreen.color.r, fadeScreen.color.g, fadeScreen.color.b, Mathf.MoveTowards(fadeScreen.color.a, 0f, fadeSpeed * Time.deltaTime));
+
+            if (fadeScreen.color.a == 0)
+            {
+                shouldFadeFromBlack = false;
+            }
+        }
     }
 
     public void UpdateHealthDisplay()
@@ -86,6 +112,18 @@ public class UIController : MonoBehaviour
     public void UpdateGemCount()
     {
         gemText.text = LevelManager.instance.gemsCollected.ToString();
+    }
+
+    public void FadeToBlack()
+    {
+        shouldFadeToBlack = true;
+        shouldFadeFromBlack = false;
+    }
+
+    public void FadeFromBlack ()
+    {
+        shouldFadeToBlack = false;
+        shouldFadeFromBlack = true;
     }
 
 }

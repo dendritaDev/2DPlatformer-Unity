@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     public float knockBackLength, knockBackForce;
     private float knockBackCounter;
 
+    public bool stopInput; //esto haremos que sea falso cuando p.e lleguemos al nivel final
+
     private void Awake()
     {
         instance = this;
@@ -44,7 +46,7 @@ public class PlayerController : MonoBehaviour
     
     void Update()
     {
-        if(!PauseMenu.instance.isPaused) //esto es para que si le damos a escape y estamos en el menu, que el player no se pueda mover 
+        if(!PauseMenu.instance.isPaused && !stopInput) //esto es para que si le damos a escape y estamos en el menu, que el player no se pueda mover 
         {
             if (knockBackCounter <= 0)
             {
