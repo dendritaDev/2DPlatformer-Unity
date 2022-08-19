@@ -8,7 +8,7 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource[] soundEffects;
 
-    public AudioSource bgm, levelEndMusic; //bgm: bacgroundmusic
+    public AudioSource bgm, levelEndMusic, bossMusic; //bgm: bacgroundmusic
 
     private void Awake()
     {
@@ -38,6 +38,18 @@ public class AudioManager : MonoBehaviour
     {
         bgm.Stop();
         levelEndMusic.Play();
+    }
+
+    public void PlayBossMusic()
+    {
+        bgm.Stop();
+        bossMusic.Play();
+    }
+
+    public void StopBossMusic()
+    {
+        bossMusic.Stop();
+        bgm.Play();
     }
 
 }

@@ -18,8 +18,8 @@ TagManager:
   - Player
   - Ground
   - Platform
-  - 
-  - 
+  - HurtBox
+  - Bullets
   - 
   - 
   - 
