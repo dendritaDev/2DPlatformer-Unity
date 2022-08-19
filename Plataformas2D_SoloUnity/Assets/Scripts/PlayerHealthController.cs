@@ -84,4 +84,22 @@ public class PlayerHealthController : MonoBehaviour
 
         UIController.instance.UpdateHealthDisplay();
     }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+
+        if(other.gameObject.tag == "Platform")
+        {
+            transform.parent = other.transform; //hacemos que el player sea hijo jeraquicamente de la plataforma para que cuando este encima esta lo mueva
+        }
+
+    }
+
+    private void OnCollisionExit2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "Platform")
+        {
+            transform.parent = null; //esto para que deje de ser hijo suyo
+        }
+    }
 }
