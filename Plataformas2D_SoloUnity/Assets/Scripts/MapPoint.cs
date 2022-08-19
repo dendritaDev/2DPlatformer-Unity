@@ -14,11 +14,34 @@ public class MapPoint : MonoBehaviour
     public int gemsCollected, totalGems;
     public float bestTime, targetTime;
 
+    public GameObject gemBadge, timeBadge; //si conseguimos llegar a la meta que s poen de tiempo y gema apreceran los iconocitos en ese nivel.
+
     void Start()
     {
         
         if(isLevel && LevelToLoad != null)
         {
+
+            if(PlayerPrefs.HasKey(LevelToLoad + "_gems")) //aqui lo que hacemos es chequear si tenemos info guardada en esta variable que se llama nombre de escena + _gems
+            {
+                gemsCollected = PlayerPrefs.GetInt(LevelToLoad + "_gems"); //y de ser asi le damos ese valor a gemscollected
+            }
+
+            if (PlayerPrefs.HasKey(LevelToLoad + "_time"))
+            {
+                bestTime = PlayerPrefs.GetFloat(LevelToLoad + "_time");
+            }
+
+            if(gemsCollected >= totalGems && totalGems != 0)
+            {
+                gemBadge.SetActive(true);
+            }
+
+            if (bestTime <= targetTime && bestTime != 0)
+            {
+                timeBadge.SetActive(true);
+            }
+
             isLocked = true;
 
             if(levelToCheck != null) //aqui lo que miramos es si el nivel anterior(el que tenemos que cheuqear que ya nos hayamos pasado) esta unlocked (que si nos lo hemos pasado le añadimos eso),

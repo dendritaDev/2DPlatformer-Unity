@@ -34,6 +34,7 @@ public class LSPlayer : MonoBehaviour
                 if (currentPoint.right != null)
                 {
                     SetNextPoint(currentPoint.right);
+                    AudioManager.instance.PlaySFX(5);
                 }
 
             }
@@ -44,6 +45,7 @@ public class LSPlayer : MonoBehaviour
                 if (currentPoint.left != null)
                 {
                     SetNextPoint(currentPoint.left);
+                    AudioManager.instance.PlaySFX(5);
                 }
 
             }
@@ -54,6 +56,7 @@ public class LSPlayer : MonoBehaviour
                 if (currentPoint.up != null)
                 {
                     SetNextPoint(currentPoint.up);
+                    AudioManager.instance.PlaySFX(5);
                 }
 
             }
@@ -64,6 +67,7 @@ public class LSPlayer : MonoBehaviour
                 if (currentPoint.down != null)
                 {
                     SetNextPoint(currentPoint.down);
+                    AudioManager.instance.PlaySFX(5);
                 }
 
             }
@@ -75,6 +79,8 @@ public class LSPlayer : MonoBehaviour
                 if(Input.GetButtonDown("Jump")) //si pulsamos el espacio cargamos el nivel
                 {
                     levelLoading = true;
+
+                    AudioManager.instance.PlaySFX(4);
 
                     theManager.LoadLevel();
                 }

@@ -345,6 +345,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 558181872696852727, guid: 4ed1369b0d8070545bf47b87739bb5df,
+        type: 3}
+      propertyPath: levelToLoad
+      value: LevelSelect
+      objectReference: {fileID: 0}
     - target: {fileID: 558181873396190951, guid: 4ed1369b0d8070545bf47b87739bb5df,
         type: 3}
       propertyPath: CheckPoints.Array.size
