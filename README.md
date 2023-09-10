@@ -1,6 +1,9 @@
 # 2DPlatformer-SoloUnity
 2D Platformer Game from Solo Unity Youtube Channel Tutorial (7h)
 
+## Project Created
+This project was created on [2022].
+
 # Features
 - Player Movement: Walk, Double Jump  <br>
 - Parallax Effect<br>
